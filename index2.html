@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تنبيه أمني عاجل</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.5s ease;
+            background-color: #000;
+        }
+
+        /* شاشة البداية الخادعة */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #111;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .overlay h2 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            direction: rtl;
+        }
+
+        .fake-btn {
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+        }
+
+        /* تأثير الخلفية المرعبة بعد الضغط */
+        .scary-mode {
+            background-image: 
+                linear-gradient(45deg, rgba(255, 0, 0, 0.15) 25%, transparent 25%), 
+                linear-gradient(-45deg, rgba(255, 0, 0, 0.15) 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, rgba(255, 0, 0, 0.15) 75%), 
+                linear-gradient(-45deg, transparent 75%, rgba(255, 0, 0, 0.15) 75%);
+            background-size: 40px 40px;
+        }
+
+        .prank-mode {
+            background-color: #fff;
+            background-image: none;
+        }
+
+        /* النص المرعب المهتز */
+        .hacked-text {
+            color: #ff0000;
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
+            direction: rtl;
+            display: none; /* يظهر بعد الضغط */
+        }
+
+        .shaking {
+            animation: shakeUp 0.3s infinite alternate;
+        }
+
+        /* نص المقلب */
+        .prank-text {
+            color: #000;
+            font-size: 4rem;
+            font-weight: bold;
+            text-align: center;
+            display: none;
+        }
+
+        @keyframes shakeUp {
+            0% { transform: translate(2px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(0px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(2px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(2px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -30px) rotate(-1deg); }
+        }
+    </style>
+</head>
+<body id="bg">
+
+    <!-- الشاشة الخادعة لإجبار المستخدم على الضغط وتفعيل الصوت -->
+    <div class="overlay" id="popup">
+        <h2>تحذير: تم رصد نشاط غريب على جهازك!</h2>
+        <button class="fake-btn" onclick="startPrank()">إلغاء التهديد</button>
+    </div>
+
+    <h1 class="hacked-text" id="scaryText">تم تهكير جهازك!</h1>
+    <h1 class="prank-text" id="funnyText">مقلب 😂</h1>
+
+    <!-- الأصوات -->
+    <audio id="scarySound" src="https://google.com" preload="auto"></audio>
+    <audio id="happySound" src="https://google.com" preload="auto"></audio>
+
+    <script>
+        function startPrank() {
+            // إخفاء الزر والشاشة الخادعة فوراً
+            document.getElementById('popup').style.display = 'none';
+
+            const bg = document.getElementById('bg');
+            const scaryText = document.getElementById('scaryText');
+            const funnyText = document.getElementById('funnyText');
+            const scarySound = document.getElementById('scarySound');
+            const happySound = document.getElementById('happySound');
+
+            // تفعيل نمط الرعب والنص والاهتزاز
+            bg.classList.add('scary-mode');
+            scaryText.style.display = 'block';
+            scaryText.classList.add('shaking');
+
+            // تشغيل الصوت المرعب
+            scarySound.play();
+
+            // الانتقال إلى شاشة المقلب البيضاء بعد 4 ثوانٍ
+            setTimeout(() => {
+                scarySound.pause();
+                happySound.play();
+
+                bg.className = 'prank-mode';
+                scaryText.style.display = 'none';
+                funnyText.style.display = 'block';
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
